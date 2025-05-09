@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			el.addEventListener('change', function () {
 				const id = this.dataset.id;
 				if (this.checked) {
-					checked[id] = { time: new Date().toISOString() };
+					checked[id] = { time: Math.floor(Date.now() / 1000) };
 				} else {
 					delete checked[id];
 				}
@@ -244,37 +244,23 @@ document.addEventListener('DOMContentLoaded', function () {
 		document.getElementById('sum-vip').textContent = `${sumVip} BP`;
 	}
 
-	function getMoscowDate(isoString) {
-		const sourceDate = isoString ? new Date(isoString) : new Date();
-
-		const parts = new Intl.DateTimeFormat('ru-RU', {
-			timeZone: 'Europe/Moscow',
-			year: 'numeric',
-			month: '2-digit',
-			day: '2-digit',
-			hour: '2-digit',
-			minute: '2-digit',
-			second: '2-digit'
-		}).formatToParts(sourceDate);
-
-		const obj = Object.fromEntries(parts.map(p => [p.type, p.value]));
-
-		const iso = `${obj.year}-${obj.month}-${obj.day}T${obj.hour}:${obj.minute}:${obj.second}`;
-		return new Date(iso);
+	function getLogicalDayFromTimestamp(ts) {
+		const mod = ts % 86400;
+		const shift = (mod <= 14460) ? -1 : 0;
+		return Math.floor(ts / 86400) + shift;
 	}
 
-	function getLogicalDate(date = getMoscowDate()) {
-		const adjusted = new Date(date);
-		if (adjusted.getHours() < 7) {
-			adjusted.setDate(adjusted.getDate() - 1);
-		}
-		return adjusted.toISOString().split('T')[0];
+	function getCurrentLogicalDay() {
+		const now = Math.floor(Date.now() / 1000);
+		return getLogicalDayFromTimestamp(now);
 	}
 
-	const logicalToday = getLogicalDate();
+	const logicalToday = getCurrentLogicalDay();
 	for (let id in checked) {
-		const savedDay = getLogicalDate(getMoscowDate(checked[id].time));
+		const saved = checked[id];
+		if (!saved?.time) continue;
 
+		const savedDay = getLogicalDayFromTimestamp(saved.time);
 		if (savedDay !== logicalToday) {
 			delete checked[id];
 		}
