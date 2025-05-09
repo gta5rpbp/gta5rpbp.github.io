@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>GTA 5 RP | Bonus Points</title>
+	<link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsSAAALEgHS3X78AAAAG3RFWHRTb2Z0d2FyZQBDZWxzeXMgU3R1ZGlvIFRvb2zBp+F8AAADIUlEQVR4nO2Z0X3TMBCHv07QboCZIGWChgkIE1AmIDz3gfCgZ8IEmA3CBIQJiCbAbGAmKA/ntKl8UhRHjptE/9/PD7Gl0/mTdTpdLu7v7zlnXWQAGUAGMLQPgyoDyAAygAxgaB8GVQaQAbgA7kY3e9irMPbvXh7djUbA1Y69Vhj7r8twGoAUn0QNLIEFsNjJubvRT2DccdxVcy1jx+0LwKZqYIaxX6Na7wfAHXcOzEMgDgFgrSUw2Tor6QCsVTfj/tIeHhIAwBJjXwdbpAew1i3GfndvxgKYImsrpKK5JsD1ro5sjK8BKJtL01Uz3nXTLxRAx+6XEAug1TEoieQlOogVxr4K9NUAzDD2c+TY75C1r4GogWJzGfYDQOxcApXqiLEXgX77AXgce4k+AU9s9QdAbH1Blk+8vRQAxM4LZNm6E1Bh7Mv1j74B3CAzEW8vFQCx5ZuAa4y1cPoAfOM/BOKhAFx584GUAMSe9j4P9voG8AmYOXf73QXa9gYF8Jt2JO6SBxwhANmPS+duePalX8oYMEJP4CYY+wP6ACB78JT2p183duyW/ikBaJMAHXaBmFR4nY5O0PZeoR5+eRk/JYA/SHr+1JcOecA+KoFpdE0gXSL0AUmJXXXKBLuqapwoDwrA/+l3Pguk0Bx5kS71gDgAkv7OgFtPi6lbmDl0PaBiWyzY/Tg8RmLOmPAxvMTY9+7NlEGQxoECCYSFp02NRGG9eNpPQUR9eeg3D7hBZq1QnvorQ+kBtD77TfWdCV4iECbKUz0jTAegRGJHsEzfLwCx5yuMLDD2rdK+K4B1KX7Z2I76f6J/AGLzG1pk1ipDuwfBOirB8uhQALampBtt0x6GtuhQAOILIxnAaQJ4g/xP6OpsloBenIwPgkcMQLbBFe2ESC+OnCAAfQvcLRE6QgAy83P0l6+Q9d8+GR49ADmSTpA1X3haPdTklP7PEkCJzJpPhXOFNMfYj96nzxRAKgVPZs34JwmgQoLe9mV0YgAqxHn/HyGujhhAjez3j8fSLqe0wQGcmTKADCADyACG9mFQZQAZQAaQAQztw6A6ewD/ATVovp83eW6XAAAAAElFTkSuQmCC" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<style>
+		.show-button {
+			margin-top: -0.3em;
+			opacity: 0.8;
+			font-size: 0.8rem;
+			padding-right: 0.5em !important;
+			transition: opacity 0.2s ease-in-out;
+		}
+
+		.show-button:hover {
+			opacity: 1;
+		}
+
+		.hide-button {
+			margin-top: -0.5em;
+			opacity: 0.5;
+			transition: opacity 0.2s ease-in-out;
+		}
+
+		.hide-button:hover {
+			opacity: 1;
+		}
+	</style>
+</head>
+<body class="bg-light">
+<div class="container mt-4">
+	<div class="alert alert-info d-flex align-items-center" role="alert">
+		<svg class="bi flex-shrink-0 me-2" width="24" height="24" fill="currentColor" viewBox="0 0 512 512"><path d="M446.17 97.44c-44.92-44.59-118.08-44.59-163 0l-27.17 27-27.17-27c-44.92-44.59-118.08-44.59-163 0a113.64 113.64 0 000 161.8C78.44 271.8 250 442 256 448c5.5-5.59 178.05-176.63 190.17-188.76a113.64 113.64 0 000-161.8zm-22.65 139.61L256 403.32 88.48 237.05a82.19 82.19 0 01-24.55-58.71c-.88-44.63 38.67-83.82 83.4-82.85 43.65-4.1 80.52 47.92 108.67 73.6 28.4-25.79 64.84-77.59 108.67-73.6 72.45-1.87 111.72 91.66 58.85 141.56z"/></svg>
+		<div>Количество бонус поинтов указано в двух вариантах: без VIP статуса, с Gold или Platinum VIP.</div>
+	</div>
+
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover align-middle">
+			<thead class="table-dark">
+				<tr>
+					<th class="d-none d-sm-table-cell">Тип</th>
+					<th>
+						Действие
+						<button id="show-hidden" class="btn btn-sm btn-outline-light show-button p-0 px-1 ms-2">
+						👁 Показать все
+						</button>
+					</th>
+					<th colspan="2">Без / с VIP</th>
+					<th>Отметка</th>
+				</tr>
+			</thead>
+			<tbody id="data-table">
+				<noscript>
+					<tr><td colspan="5" class="text-center text-danger">Для работы необходимо включить JavaScript</td></tr>
+				</noscript>
+			</tbody>
+			<tfoot>
+				<tr id="bp-summary">
+					<td class="d-none d-sm-table-cell"></td>
+					<td class="text-end fw-bold">Итого:</td>
+					<td id="sum-novip">0 BP</td>
+					<td id="sum-vip">0 BP</td>
+					<td class="text-center">
+						<button id="reset-checks" class="btn btn-sm">
+							Сбросить
+						</button>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	<footer class="text-center text-secondary mb-3 small">
+		Источник данных — <a href="https://gta5rp.info/wiki/bonus-pointy/" class="text-decoration-none" target="_blank">GTA5RP.INFO</a>. Страница собрана <strong>d1KdaT</strong> на коленке, зато работает как нужно :)
+	</footer>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+	const data = [
+		['Одиночные', 'Арендовать Киностудию (с наличием VIP предоставляется скидка)', 2, 4],
+		['Одиночные', 'Выполнить 1 успешную тренировку в тире', 1, 2],
+		['Одиночные', 'Выиграть в казино, поставив на 0 или 00', 2, 4],
+		['Одиночные', 'Провести 3 часа в игре', 2, 4],
+		['Одиночные', 'Выполнить 20 подходов на любом тренажёре в спортивном зале или на спортплощадке', 1, 2],
+		['Одиночные', 'Выполнить 20 подходов на любом эспандере (заменяет спортивный зал)', 1, 2],
+		['Одиночные', 'Купить 1 лотерейный билет через телефон', 1, 2],
+		['Одиночные', '2 раза сменить внешность у NPC Хирурга в городской EMS', 2, 4],
+		['Одиночные', 'Добавить 5 видео в Кинотеатр (можно добавить 1 ролик 5 раз)', 1, 2],
+
+		['Парные', 'Выиграть 1 гонку на картинге', 1, 2],
+		['Парные', 'Проехать 1 уличную гонку, созданную через телефон со ставкой от 1000$ (с 5-го уровня)', 1, 2],
+		['Парные', 'Победить 3 раза в Dance Battle в любом из ночных клубов', 2, 4],
+		['Парные', 'Выиграть 3 игры на Арене Maze Bank со ставкой от 100$', 1, 2],
+		['Парные', 'Выиграть 5 игр в Тренировочном комплексе (ТК) со ставкой от 100$', 1, 2],
+
+		['Хобби', 'Снять 5 шкур прочностью 100% (надо убить животное с 1 выстрела)', 2, 4],
+		['Хобби', 'Выкопать 1 сокровище (не хлам)', 1, 2],
+
+		['Работа', 'Выполнить 25 действий в порту', 2, 4],
+		['Работа', 'Выполнить 25 действий на шахте', 2, 4],
+		['Работа', 'Выполнить 25 действий на стройке', 2, 4],
+		['Работа', 'Потушить 25 огоньков, работая пожарным', 1, 2],
+		['Работа', 'Доставить 10 посылок, работая почтальоном', 1, 2],
+		['Работа', 'Выполнить 10 действий на ферме (например, подоить корову)', 1, 2],
+		['Работа', 'Выполнить 15 рейсов в порт из любой точки, работая дальнобойщиком', 2, 4],
+		['Работа', 'Выполнить 2 рейса на любом маршруте, работая водителем автобуса', 2, 4],
+
+		['Гос.', 'Выдать 5 медкарт, работая в EMS', 1, 2],
+		['Гос.', 'Закрыть 15 вызовов, работая в EMS', 2, 4],
+		['Гос.', 'Произвести 1 арест в КПЗ LSPD/LSSD', 1, 2],
+		['Гос.', 'Поставить 2 транспортных средства на учёт, работая в LSPD', 1, 2],
+		['Гос.', 'Закрыть 5 вызовов, работая в гос. (например, Код-0)', 2, 4],
+		['Гос.', 'Выпустить 2-х заключённых под залог из КПЗ LSPD/LSSD, работая адвокатом', 2, 4],
+		['Гос.', 'Проверить и опубликовать 40 объявлений, работая в Weazel News', 2, 4],
+		['Гос.', 'Отправить 1 сообщение в Эфир (зелёная строка), работая в Weazel News', 2, 4],
+
+		['Crime', 'Поучаствовать в капте (банда) или бизваре (мафия)', 1, 2],
+		['Crime', 'Привезти на титул Хаммер с ВЗХ', 3, 6],
+		['Crime', '5 раз получить оплату за доставку контрабанды в мафии', 2, 4],
+		['Crime', 'Взломать 15 замков на ограблениях домов и/или угонах авто', 2, 4],
+		['Crime', 'Закрасить 7 граффити, находясь в банде (можно закрасить одно граффити 7 раз)', 1, 2],
+
+		['Бизнес', 'Вручную заказать материалы на склад бизнеса (нажать выкл./вкл.)', 1, 2],
+	];
+
+	const tableBody = document.getElementById('data-table');
+	const storageKey = 'bp-checks';
+	const hiddenKey = 'bp-hidden';
+
+	let checked = JSON.parse(localStorage.getItem(storageKey) || '{}');
+	let hidden = JSON.parse(localStorage.getItem(hiddenKey) || '[]');
+
+	function renderTable() {
+		tableBody.innerHTML = '';
+
+		data.forEach((row, index) => {
+			const id = index + 1;
+			const isHidden = hidden.includes(id);
+
+			const tr = document.createElement('tr');
+			tr.dataset.id = id;
+			if (isHidden) tr.style.display = 'none';
+
+			const tdType = document.createElement('td');
+			tdType.className = 'd-none d-sm-table-cell';
+			tdType.textContent = row[0];
+			tr.appendChild(tdType);
+
+			const tdAction = document.createElement('td');
+			tdAction.innerHTML = `${row[1]} <button class="btn btn-sm hide-row p-0 hide-button" data-id="${id}" title="Скрыть">👁️‍🗨️</button>`;
+			tr.appendChild(tdAction);
+
+			const tdNoVip = document.createElement('td');
+			tdNoVip.textContent = `${row[2]} BP`;
+			tr.appendChild(tdNoVip);
+
+			const tdVip = document.createElement('td');
+			tdVip.textContent = `${row[3]} BP`;
+			tr.appendChild(tdVip);
+
+			const tdCheck = document.createElement('td');
+			tdCheck.className = 'check-cell text-center';
+			tdCheck.innerHTML = `<input type="checkbox" class="form-check-input bp-check" data-id="${id}" ${checked[id] ? 'checked' : ''}>`;
+			tr.appendChild(tdCheck);
+
+			tableBody.appendChild(tr);
+		});
+
+		attachEvents();
+	}
+
+	function attachEvents() {
+		document.querySelectorAll('.bp-check').forEach(el => {
+			el.addEventListener('change', function () {
+				const id = this.dataset.id;
+				if (this.checked) {
+					checked[id] = { time: new Date().toISOString() };
+				} else {
+					delete checked[id];
+				}
+				localStorage.setItem(storageKey, JSON.stringify(checked));
+				updateSummary();
+			});
+		});
+
+		document.querySelectorAll('.check-cell').forEach(cell => {
+			cell.addEventListener('click', function (e) {
+				if (e.target.tagName === 'INPUT') return;
+				const checkbox = cell.querySelector('.bp-check');
+				checkbox.checked = !checkbox.checked;
+				checkbox.dispatchEvent(new Event('change'));
+			});
+		});
+
+		document.querySelectorAll('.hide-row').forEach(btn => {
+			btn.addEventListener('click', function (e) {
+				e.stopPropagation();
+				const id = parseInt(this.dataset.id);
+				if (!hidden.includes(id)) {
+					hidden.push(id);
+					localStorage.setItem(hiddenKey, JSON.stringify(hidden));
+				}
+				document.querySelector(`tr[data-id="${id}"]`).style.display = 'none';
+			});
+		});
+
+		document.getElementById('show-hidden').addEventListener('click', () => {
+			localStorage.removeItem(hiddenKey);
+			document.querySelectorAll('tbody tr').forEach(row => row.style.display = '');
+		});
+
+		document.getElementById('reset-checks').addEventListener('click', () => {
+			if (confirm('Сбросить все отметки?')) {
+				localStorage.setItem(storageKey, '{}');
+
+				document.querySelectorAll('.bp-check').forEach(cb => {
+					cb.checked = false;
+				});
+
+				updateSummary();
+			}
+		});
+	}
+
+	function updateSummary() {
+		let sumNoVip = 0;
+		let sumVip = 0;
+
+		document.querySelectorAll('.bp-check:checked').forEach(cb => {
+			const id = parseInt(cb.dataset.id);
+			const entry = data[id - 1];
+			if (entry) {
+				sumNoVip += entry[2];
+				sumVip += entry[3];
+			}
+		});
+
+		document.getElementById('sum-novip').textContent = `${sumNoVip} BP`;
+		document.getElementById('sum-vip').textContent = `${sumVip} BP`;
+	}
+
+	function getMoscowDate(isoString) {
+		const sourceDate = isoString ? new Date(isoString) : new Date();
+
+		const parts = new Intl.DateTimeFormat('ru-RU', {
+			timeZone: 'Europe/Moscow',
+			year: 'numeric',
+			month: '2-digit',
+			day: '2-digit',
+			hour: '2-digit',
+			minute: '2-digit',
+			second: '2-digit'
+		}).formatToParts(sourceDate);
+
+		const obj = Object.fromEntries(parts.map(p => [p.type, p.value]));
+
+		const iso = `${obj.year}-${obj.month}-${obj.day}T${obj.hour}:${obj.minute}:${obj.second}`;
+		return new Date(iso);
+	}
+
+	function getLogicalDate(date = getMoscowDate()) {
+		const adjusted = new Date(date);
+		if (adjusted.getHours() < 7) {
+			adjusted.setDate(adjusted.getDate() - 1);
+		}
+		return adjusted.toISOString().split('T')[0];
+	}
+
+	const logicalToday = getLogicalDate();
+	for (let id in checked) {
+		const savedDay = getLogicalDate(getMoscowDate(checked[id].time));
+
+		if (savedDay !== logicalToday) {
+			delete checked[id];
+		}
+	}
+	localStorage.setItem(storageKey, JSON.stringify(checked));
+
+	renderTable();
+	updateSummary();
+});
+</script>
+
+</body>
+</html>
