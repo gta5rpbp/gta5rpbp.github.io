@@ -234,7 +234,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 
 		document.getElementById('show-hidden').addEventListener('click', () => {
-			localStorage.removeItem(hiddenKey);
+			hidden = [];
+			localStorage.setItem(hiddenKey, JSON.stringify(hidden));
 			document.querySelectorAll('tbody tr').forEach(row => row.style.display = '');
 		});
 
