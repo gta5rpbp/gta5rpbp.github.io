@@ -129,7 +129,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		['Одиночные', 'Поиграть 1 минуту в настольный теннис', 1, 2],
 		['Одиночные', 'Поиграть 1 минуту в большой теннис', 1, 2],
 		['Одиночные', 'Сделать платеж по лизингу', 1, 2],
-		['Одиночные', 'Принять участие в двух аирдропах', 4, 8],
 
 		['Парные', 'Выиграть 1 гонку на картинге', 1, 2],
 		['Парные', 'Проехать 1 уличную гонку, созданную через телефон со ставкой от 1000$ (с 5-го уровня)', 1, 2],
@@ -160,6 +159,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		['Гос.', 'Проверить и опубликовать 40 объявлений, работая в Weazel News', 2, 4],
 		['Гос.', 'Отправить 1 сообщение в Эфир (зелёная строка), работая в Weazel News', 2, 4],
 
+		['Гос. / Crime', 'Принять участие в двух аирдропах', 4, 8],
+
 		['Crime', 'Поучаствовать в капте (банда) или бизваре (мафия)', 1, 2],
 		['Crime', 'Привезти на титул Хаммер с ВЗХ', 3, 6],
 		['Crime', '5 раз получить оплату за доставку контрабанды в мафии', 2, 4],
@@ -179,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	const storageKey = 'bp-checks';
 	const storageKey_updated = 'bp-checks-updated';
 	const hiddenKey = 'bp-hidden';
-	const data_last_updated = '202510240650';
+	const data_last_updated = '202510240744';
 
 	let checked = JSON.parse(localStorage.getItem(storageKey) || '{}');
 	let hidden = JSON.parse(localStorage.getItem(hiddenKey) || '[]');
