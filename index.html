@@ -43,6 +43,40 @@
 			opacity: 1;
 			box-shadow: 0 0 5px rgba(255,255,255,0.2);
 		}
+
+		tr.drag-over {
+			outline: 2px dashed #0d6efd;
+		}
+
+		.arrow-group {
+			display: inline-flex;
+			flex-direction: column;
+			vertical-align: top;
+			margin-left: 2px;
+			margin-top: 5px;
+			margin-right: 2px;
+		}
+
+		.arrow-btn {
+			display: block;
+			align-items: center;
+			justify-content: center;
+			width: 8px;
+			height: 8px;
+			font-size: 8px;
+			line-height: 8px;
+			cursor: pointer;
+			opacity: 0.6;
+			user-select: none;
+		}
+
+		.arrow-btn:hover {
+			opacity: 1;
+		}
+
+		.action-text {
+			display: inline;
+		}
 	</style>
 </head>
 <body class="bg-light">
@@ -65,7 +99,10 @@
 					<th>
 						Действие
 						<button id="show-hidden" class="btn btn-sm btn-outline-light show-button p-0 px-1 ms-2">
-						👁 Показать все
+							👁 Показать все
+						</button>
+						<button id="reset-order" class="btn btn-sm btn-outline-light show-button p-0 px-1 ms-2">
+							↺ Порядок
 						</button>
 					</th>
 					<th colspan="2">Без / с VIP</th>
@@ -102,75 +139,75 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 	const data = [
-		['Одиночные', 'Арендовать Киностудию (с наличием VIP предоставляется скидка)', 2, 4],
-		['Одиночные', 'Выполнить 1 успешную тренировку в тире', 1, 2],
-		['Одиночные', 'Выиграть в казино, поставив на 0 или 00', 2, 4],
-		['Одиночные', 'Провести 3 часа в игре', 2, 4],
-		['Одиночные', 'Выполнить 20 подходов на любом тренажёре в спортивном зале или на спортплощадке', 1, 2],
-		['Одиночные', 'Выполнить 20 подходов на любом эспандере (заменяет спортивный зал)', 1, 2],
-		['Одиночные', 'Купить 1 лотерейный билет через телефон', 1, 2],
-		['Одиночные', '2 раза сменить внешность у NPC Хирурга в городской EMS', 2, 4],
-		['Одиночные', 'Добавить 5 видео в Кинотеатр (можно добавить 1 ролик 5 раз)', 1, 2],
-		['Одиночные', 'Посетить любой сайт в браузере', 1, 2],
-		['Одиночные', 'Зайти в любой канал в Brawl', 1, 2],
-		['Одиночные', 'Поставить лайк любой анкете в Match', 1, 2],
-		['Одиночные', 'Прокрутить за DP серебрянный или золотой кейс', 10, 20],
-		['Одиночные', 'Кинуть мяч питомцу 15 раз', 2, 4],
-		['Одиночные', '15 выполненных питомцем команд', 2, 4],
-		['Одиночные', 'Ставка в колесе удачи в казино (межсерверное колесо)', 3, 6],
-		['Одиночные', 'Проехать 1 станцию на метро', 2, 4],
-		['Одиночные', 'Поймать 20 рыб', 4, 8],
-		['Одиночные', 'Выполнить 2 квеста любых клубов (можно по одному разных)', 4, 8],
-		['Одиночные', 'Починить деталь в автосервисе', 1, 2],
-		['Одиночные', 'Забросить 2 мяча в баскетболе', 1, 2],
-		['Одиночные', 'Забить 2 гола в футболе', 1, 2],
-		['Одиночные', 'Победить в дартс', 1, 2],
-		['Одиночные', 'Забить 10 голов в волейболе', 1, 2],
-		['Одиночные', 'Поиграть 1 минуту в настольный теннис', 1, 2],
-		['Одиночные', 'Поиграть 1 минуту в большой теннис', 1, 2],
-		['Одиночные', 'Сделать платеж по лизингу', 1, 2],
+		{ id: 1, type: 'Одиночные', text: 'Арендовать Киностудию (с наличием VIP предоставляется скидка)', novip: 2, vip: 4 },
+		{ id: 2, type: 'Одиночные', text: 'Выполнить 1 успешную тренировку в тире', novip: 1, vip: 2 },
+		{ id: 3, type: 'Одиночные', text: 'Выиграть в казино, поставив на 0 или 00', novip: 2, vip: 4 },
+		{ id: 4, type: 'Одиночные', text: 'Провести 3 часа в игре', novip: 2, vip: 4 },
+		{ id: 5, type: 'Одиночные', text: 'Выполнить 20 подходов на любом тренажёре в спортивном зале или на спортплощадке', novip: 1, vip: 2 },
+		{ id: 6, type: 'Одиночные', text: 'Выполнить 20 подходов на любом эспандере (заменяет спортивный зал)', novip: 1, vip: 2 },
+		{ id: 7, type: 'Одиночные', text: 'Купить 1 лотерейный билет через телефон', novip: 1, vip: 2 },
+		{ id: 8, type: 'Одиночные', text: '2 раза сменить внешность у NPC Хирурга в городской EMS', novip: 2, vip: 4 },
+		{ id: 9, type: 'Одиночные', text: 'Добавить 5 видео в Кинотеатр (можно добавить 1 ролик 5 раз)', novip: 1, vip: 2 },
+		{ id: 10, type: 'Одиночные', text: 'Посетить любой сайт в браузере', novip: 1, vip: 2 },
+		{ id: 11, type: 'Одиночные', text: 'Зайти в любой канал в Brawl', novip: 1, vip: 2 },
+		{ id: 12, type: 'Одиночные', text: 'Поставить лайк любой анкете в Match', novip: 1, vip: 2 },
+		{ id: 13, type: 'Одиночные', text: 'Прокрутить за DP серебрянный или золотой кейс', novip: 10, vip: 20 },
+		{ id: 14, type: 'Одиночные', text: 'Кинуть мяч питомцу 15 раз', novip: 2, vip: 4 },
+		{ id: 15, type: 'Одиночные', text: '15 выполненных питомцем команд', novip: 2, vip: 4 },
+		{ id: 16, type: 'Одиночные', text: 'Ставка в колесе удачи в казино (межсерверное колесо)', novip: 3, vip: 6 },
+		{ id: 17, type: 'Одиночные', text: 'Проехать 1 станцию на метро', novip: 2, vip: 4 },
+		{ id: 18, type: 'Одиночные', text: 'Поймать 20 рыб', novip: 4, vip: 8 },
+		{ id: 19, type: 'Одиночные', text: 'Выполнить 2 квеста любых клубов (можно по одному разных)', novip: 4, vip: 8 },
+		{ id: 20, type: 'Одиночные', text: 'Починить деталь в автосервисе', novip: 1, vip: 2 },
+		{ id: 21, type: 'Одиночные', text: 'Забросить 2 мяча в баскетболе', novip: 1, vip: 2 },
+		{ id: 22, type: 'Одиночные', text: 'Забить 2 гола в футболе', novip: 1, vip: 2 },
+		{ id: 23, type: 'Одиночные', text: 'Победить в дартс', novip: 1, vip: 2 },
+		{ id: 24, type: 'Одиночные', text: 'Забить 10 голов в волейболе', novip: 1, vip: 2 },
+		{ id: 25, type: 'Одиночные', text: 'Поиграть 1 минуту в настольный теннис', novip: 1, vip: 2 },
+		{ id: 26, type: 'Одиночные', text: 'Поиграть 1 минуту в большой теннис', novip: 1, vip: 2 },
+		{ id: 27, type: 'Одиночные', text: 'Сделать платеж по лизингу', novip: 1, vip: 2 },
 
-		['Парные', 'Выиграть 1 гонку на картинге', 1, 2],
-		['Парные', 'Проехать 1 уличную гонку, созданную через телефон со ставкой от 1000$ (с 5-го уровня)', 1, 2],
-		['Парные', 'Победить 3 раза в Dance Battle в любом из ночных клубов', 2, 4],
-		['Парные', 'Выиграть 3 игры на Арене Maze Bank со ставкой от 100$', 1, 2],
-		['Парные', 'Выиграть 5 игр в Тренировочном комплексе (ТК) со ставкой от 100$', 1, 2],
-		['Парные', 'Победить в армрестлинге', 1, 2],
-		['Парные', 'Сыграть в мафию в казино', 3, 6],
-		['Парные', 'Починить машину другого человека через предложение в автосервисе (от 1 уровня механика)', 2, 4],
+		{ id: 28, type: 'Парные', text: 'Выиграть 1 гонку на картинге', novip: 1, vip: 2 },
+		{ id: 29, type: 'Парные', text: 'Проехать 1 уличную гонку, созданную через телефон со ставкой от 1000$ (с 5-го уровня)', novip: 1, vip: 2 },
+		{ id: 30, type: 'Парные', text: 'Победить 3 раза в Dance Battle в любом из ночных клубов', novip: 2, vip: 4 },
+		{ id: 31, type: 'Парные', text: 'Выиграть 3 игры на Арене Maze Bank со ставкой от 100$', novip: 1, vip: 2 },
+		{ id: 32, type: 'Парные', text: 'Выиграть 5 игр в Тренировочном комплексе (ТК) со ставкой от 100$', novip: 1, vip: 2 },
+		{ id: 33, type: 'Парные', text: 'Победить в армрестлинге', novip: 1, vip: 2 },
+		{ id: 34, type: 'Парные', text: 'Сыграть в мафию в казино', novip: 3, vip: 6 },
+		{ id: 35, type: 'Парные', text: 'Починить машину другого человека через предложение в автосервисе (от 1 уровня механика)', novip: 2, vip: 4 },
 
-		['Хобби', 'Снять 5 шкур прочностью 100% (надо убить животное с 1 выстрела)', 2, 4],
-		['Хобби', 'Выкопать 1 сокровище (не хлам)', 1, 2],
+		{ id: 36, type: 'Хобби', text: 'Снять 5 шкур прочностью 100% (надо убить животное с 1 выстрела)', novip: 2, vip: 4 },
+		{ id: 37, type: 'Хобби', text: 'Выкопать 1 сокровище (не хлам)', novip: 1, vip: 2 },
 
-		['Работа', 'Выполнить 25 действий в порту', 2, 4],
-		['Работа', 'Выполнить 25 действий на шахте', 2, 4],
-		['Работа', 'Выполнить 25 действий на стройке', 2, 4],
-		['Работа', 'Потушить 25 огоньков, работая пожарным', 1, 2],
-		['Работа', 'Доставить 10 посылок, работая почтальоном', 1, 2],
-		['Работа', 'Выполнить 10 действий на ферме (например, подоить корову)', 1, 2],
-		['Работа', 'Выполнить 3 заказа дальнобойщиком', 2, 4],
-		['Работа', 'Выполнить 2 рейса на любом маршруте, работая водителем автобуса', 2, 4],
+		{ id: 38, type: 'Работа', text: 'Выполнить 25 действий в порту', novip: 2, vip: 4 },
+		{ id: 39, type: 'Работа', text: 'Выполнить 25 действий на шахте', novip: 2, vip: 4 },
+		{ id: 40, type: 'Работа', text: 'Выполнить 25 действий на стройке', novip: 2, vip: 4 },
+		{ id: 41, type: 'Работа', text: 'Потушить 25 огоньков, работая пожарным', novip: 1, vip: 2 },
+		{ id: 42, type: 'Работа', text: 'Доставить 10 посылок, работая почтальоном', novip: 1, vip: 2 },
+		{ id: 43, type: 'Работа', text: 'Выполнить 10 действий на ферме (например, подоить корову)', novip: 1, vip: 2 },
+		{ id: 44, type: 'Работа', text: 'Выполнить 3 заказа дальнобойщиком', novip: 2, vip: 4 },
+		{ id: 45, type: 'Работа', text: 'Выполнить 2 рейса на любом маршруте, работая водителем автобуса', novip: 2, vip: 4 },
 
-		['Гос.', 'Выдать 5 медкарт, работая в EMS', 1, 2],
-		['Гос.', 'Закрыть 15 вызовов, работая в EMS', 2, 4],
-		['Гос.', 'Произвести 1 арест в КПЗ LSPD/LSSD', 1, 2],
-		['Гос.', 'Поставить 2 транспортных средства на учёт, работая в LSPD', 1, 2],
-		['Гос.', 'Закрыть 5 вызовов, работая в гос. (например, Код-0)', 2, 4],
-		['Гос.', 'Выпустить 2-х заключённых под залог из КПЗ LSPD/LSSD, работая адвокатом', 2, 4],
-		['Гос.', 'Проверить и опубликовать 40 объявлений, работая в Weazel News', 2, 4],
-		['Гос.', 'Отправить 1 сообщение в Эфир (зелёная строка), работая в Weazel News', 2, 4],
+		{ id: 46, type: 'Гос.', text: 'Выдать 5 медкарт, работая в EMS', novip: 1, vip: 2 },
+		{ id: 47, type: 'Гос.', text: 'Закрыть 15 вызовов, работая в EMS', novip: 2, vip: 4 },
+		{ id: 48, type: 'Гос.', text: 'Произвести 1 арест в КПЗ LSPD/LSSD', novip: 1, vip: 2 },
+		{ id: 49, type: 'Гос.', text: 'Поставить 2 транспортных средства на учёт, работая в LSPD', novip: 1, vip: 2 },
+		{ id: 50, type: 'Гос.', text: 'Закрыть 5 вызовов, работая в гос. (например, Код-0)', novip: 2, vip: 4 },
+		{ id: 51, type: 'Гос.', text: 'Выпустить 2-х заключённых под залог из КПЗ LSPD/LSSD, работая адвокатом', novip: 2, vip: 4 },
+		{ id: 52, type: 'Гос.', text: 'Проверить и опубликовать 40 объявлений, работая в Weazel News', novip: 2, vip: 4 },
+		{ id: 53, type: 'Гос.', text: 'Отправить 1 сообщение в Эфир (зелёная строка), работая в Weazel News', novip: 2, vip: 4 },
 
-		['Гос. / Crime', 'Принять участие в двух аирдропах', 4, 8],
+		{ id: 54, type: 'Гос. / Crime', text: 'Принять участие в двух аирдропах', novip: 4, vip: 8 },
 
-		['Crime', 'Поучаствовать в капте (банда) или бизваре (мафия)', 1, 2],
-		['Crime', 'Привезти на титул Хаммер с ВЗХ', 3, 6],
-		['Crime', '5 раз получить оплату за доставку контрабанды в мафии', 2, 4],
-		['Crime', 'Взломать 15 замков на ограблениях домов и/или угонах авто', 2, 4],
-		['Crime', 'Закрасить 7 граффити, находясь в банде (можно закрасить одно граффити 7 раз)', 1, 2],
-		['Crime', 'Посадить траву в теплице', 4, 8],
-		['Crime', 'Запустить переработку обезболивающих в лаборатории', 4, 8],
+		{ id: 55, type: 'Crime', text: 'Поучаствовать в капте (банда) или бизваре (мафия)', novip: 1, vip: 2 },
+		{ id: 56, type: 'Crime', text: 'Привезти на титул Хаммер с ВЗХ', novip: 3, vip: 6 },
+		{ id: 57, type: 'Crime', text: '5 раз получить оплату за доставку контрабанды в мафии', novip: 2, vip: 4 },
+		{ id: 58, type: 'Crime', text: 'Взломать 15 замков на ограблениях домов и/или угонах авто', novip: 2, vip: 4 },
+		{ id: 59, type: 'Crime', text: 'Закрасить 7 граффити, находясь в банде (можно закрасить одно граффити 7 раз)', novip: 1, vip: 2 },
+		{ id: 60, type: 'Crime', text: 'Посадить траву в теплице', novip: 4, vip: 8 },
+		{ id: 61, type: 'Crime', text: 'Запустить переработку обезболивающих в лаборатории', novip: 4, vip: 8 },
 
-		['Бизнес', 'Вручную заказать материалы на склад бизнеса (нажать выкл./вкл.)', 1, 2],
+		{ id: 62, type: 'Бизнес', text: 'Вручную заказать материалы на склад бизнеса (нажать выкл./вкл.)', novip: 1, vip: 2 },
 	];
 
 	const html = document.documentElement;
@@ -181,11 +218,74 @@ document.addEventListener('DOMContentLoaded', function () {
 	const storageKey = 'bp-checks';
 	const storageKey_updated = 'bp-checks-updated';
 	const hiddenKey = 'bp-hidden';
-	const data_last_updated = '202512140830';
+	const data_last_updated = '202603211918';
+	const orderKey = 'bp-custom-order';
 
 	let checked = JSON.parse(localStorage.getItem(storageKey) || '{}');
 	let hidden = JSON.parse(localStorage.getItem(hiddenKey) || '[]');
 	let last_update = localStorage.getItem(storageKey_updated) || '0';
+	let customOrder = JSON.parse(localStorage.getItem(orderKey) || 'null');
+
+	const allIds = data.map(item => item.id);
+
+	if (!customOrder) {
+		customOrder = allIds;
+	} else {
+		const missing = allIds.filter(id => !customOrder.includes(id));
+		if (missing.length > 0) {
+			customOrder = [...customOrder, ...missing];
+			localStorage.setItem(orderKey, JSON.stringify(customOrder));
+		}
+	}
+
+	function getSortedData() {
+		if (!customOrder) return data;
+
+		const map = new Map(data.map(item => [item.id, item]));
+
+		return customOrder
+			.map(id => map.get(id))
+			.filter(Boolean);
+	}
+
+	function moveItem(id, direction) {
+		if (!customOrder) {
+			customOrder = data.map(item => item.id);
+		}
+
+		const index = customOrder.indexOf(id);
+		const newIndex = index + direction;
+
+		if (newIndex < 0 || newIndex >= customOrder.length) return;
+
+		// swap
+		[customOrder[index], customOrder[newIndex]] =
+		[customOrder[newIndex], customOrder[index]];
+
+		localStorage.setItem(orderKey, JSON.stringify(customOrder));
+
+		renderTable();
+		updateSummary();
+	}
+
+	function moveItemDrag(fromId, toId) {
+		if (!customOrder) {
+			customOrder = data.map(item => item.id);
+		}
+
+		const fromIndex = customOrder.indexOf(fromId);
+		const toIndex = customOrder.indexOf(toId);
+
+		if (fromIndex === -1 || toIndex === -1) return;
+
+		const [moved] = customOrder.splice(fromIndex, 1);
+		customOrder.splice(toIndex, 0, moved);
+
+		localStorage.setItem(orderKey, JSON.stringify(customOrder));
+
+		renderTable();
+		updateSummary();
+	}
 
 	if (last_update !== data_last_updated && hidden.length > 0) {
 		// Показать alert
@@ -211,29 +311,38 @@ document.addEventListener('DOMContentLoaded', function () {
 	function renderTable() {
 		tableBody.innerHTML = '';
 
-		data.forEach((row, index) => {
-			const id = index + 1;
+		getSortedData().forEach((row, index) => {
+			const id = row.id;
 			const isHidden = hidden.includes(id);
 
 			const tr = document.createElement('tr');
+			tr.draggable = true;
 			tr.dataset.id = id;
 			if (isHidden) tr.style.display = 'none';
 
 			const tdType = document.createElement('td');
 			tdType.className = 'd-none d-sm-table-cell';
-			tdType.textContent = row[0];
+			tdType.textContent = row.type;
 			tr.appendChild(tdType);
 
 			const tdAction = document.createElement('td');
-			tdAction.innerHTML = `${row[1]} <button class="btn btn-sm hide-row p-0 hide-button" data-id="${id}" title="Скрыть">👁️‍🗨️</button>`;
+			tdAction.innerHTML = `
+				<span class="action-cell">
+					<span class="arrow-group">
+						<span class="move-up arrow-btn" data-id="${id}">▲</span>
+						<span class="move-down arrow-btn" data-id="${id}">▼</span>
+					</span>
+					<span class="action-text">${row.text} <button class="btn btn-sm hide-row p-0 hide-button" data-id="${id}" title="Скрыть">👁️‍🗨️</button></span>
+				</span>
+			`;
 			tr.appendChild(tdAction);
 
 			const tdNoVip = document.createElement('td');
-			tdNoVip.textContent = `${row[2]} BP`;
+			tdNoVip.textContent = `${row.novip} BP`;
 			tr.appendChild(tdNoVip);
 
 			const tdVip = document.createElement('td');
-			tdVip.textContent = `${row[3]} BP`;
+			tdVip.textContent = `${row.vip} BP`;
 			tr.appendChild(tdVip);
 
 			const tdCheck = document.createElement('td');
@@ -247,6 +356,42 @@ document.addEventListener('DOMContentLoaded', function () {
 		attachEvents();
 	}
 
+	// Главные обработчики
+	document.getElementById('show-hidden').addEventListener('click', () => {
+		hidden = [];
+		localStorage.setItem(hiddenKey, JSON.stringify(hidden));
+		document.querySelectorAll('tbody tr').forEach(row => row.style.display = '');
+	});
+
+	document.getElementById('reset-checks').addEventListener('click', () => {
+		if (confirm('Сбросить все отметки?')) {
+			checked = {};
+			localStorage.setItem(storageKey, '{}');
+
+			document.querySelectorAll('.bp-check').forEach(cb => {
+				cb.checked = false;
+			});
+
+			updateSummary();
+		}
+	});
+
+	themeButton.addEventListener('click', () => {
+		const current = html.getAttribute('data-bs-theme');
+		const newTheme = current === 'dark' ? 'light' : 'dark';
+		applyTheme(newTheme);
+		localStorage.setItem('bp-theme', newTheme);
+	});
+
+	document.getElementById('reset-order').addEventListener('click', () => {
+		if (confirm('Сбросить пользовательский порядок?')) {
+			customOrder = data.map(item => item.id);
+			localStorage.setItem(orderKey, JSON.stringify(customOrder));
+			renderTable();
+		}
+	});
+
+	// Обработчики при генерации таблицы
 	function attachEvents() {
 		document.querySelectorAll('.bp-check').forEach(el => {
 			el.addEventListener('change', function () {
@@ -282,29 +427,52 @@ document.addEventListener('DOMContentLoaded', function () {
 			});
 		});
 
-		document.getElementById('show-hidden').addEventListener('click', () => {
-			hidden = [];
-			localStorage.setItem(hiddenKey, JSON.stringify(hidden));
-			document.querySelectorAll('tbody tr').forEach(row => row.style.display = '');
+		document.querySelectorAll('.move-up').forEach(btn => {
+			btn.addEventListener('click', function (e) {
+				e.stopPropagation();
+				moveItem(parseInt(this.dataset.id), -1);
+			});
 		});
 
-		document.getElementById('reset-checks').addEventListener('click', () => {
-			if (confirm('Сбросить все отметки?')) {
-				localStorage.setItem(storageKey, '{}');
-
-				document.querySelectorAll('.bp-check').forEach(cb => {
-					cb.checked = false;
-				});
-
-				updateSummary();
-			}
+		document.querySelectorAll('.move-down').forEach(btn => {
+			btn.addEventListener('click', function (e) {
+				e.stopPropagation();
+				moveItem(parseInt(this.dataset.id), 1);
+			});
 		});
 
-		themeButton.addEventListener('click', () => {
-			const current = html.getAttribute('data-bs-theme');
-			const newTheme = current === 'dark' ? 'light' : 'dark';
-			applyTheme(newTheme);
-			localStorage.setItem('bp-theme', newTheme);
+		let draggedId = null;
+		document.querySelectorAll('#data-table tr').forEach(row => {
+			row.addEventListener('dragstart', function () {
+				draggedId = parseInt(this.dataset.id);
+				this.classList.add('opacity-50');
+			});
+
+			row.addEventListener('dragenter', function () {
+				this.classList.add('drag-over');
+			});
+
+			row.addEventListener('dragleave', function () {
+				this.classList.remove('drag-over');
+			});
+
+			row.addEventListener('dragend', function () {
+				this.classList.remove('opacity-50');
+			});
+
+			row.addEventListener('dragover', function (e) {
+				e.preventDefault(); // обязательно
+			});
+
+			row.addEventListener('drop', function (e) {
+				this.classList.remove('drag-over');
+				e.preventDefault();
+
+				const targetId = parseInt(this.dataset.id);
+				if (draggedId === targetId) return;
+
+				moveItemDrag(draggedId, targetId);
+			});
 		});
 	}
 
@@ -316,8 +484,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			const id = parseInt(cb.dataset.id);
 			const entry = data[id - 1];
 			if (entry) {
-				sumNoVip += entry[2];
-				sumVip += entry[3];
+				sumNoVip += entry.novip;
+				sumVip += entry.vip;
 			}
 		});
 
@@ -360,6 +528,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	const savedTheme = localStorage.getItem('bp-theme');
 	const initialTheme = savedTheme || getSystemTheme();
 	applyTheme(initialTheme);
+
+	if (!customOrder) {
+		customOrder = data.map(item => item.id);
+	}
 
 	renderTable();
 	updateSummary();
