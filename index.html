@@ -105,7 +105,7 @@
 							↺ Порядок
 						</button>
 					</th>
-					<th colspan="2">Без / с VIP</th>
+					<th colspan="2"><span id="span-multiplier"></span>Без / с VIP</th>
 					<th class="text-center">
 						<input type="checkbox" disabled checked class="form-check-input opacity-50">
 					</th>
@@ -139,75 +139,75 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 	const data = [
-		{ id: 1, type: 'Одиночные', text: 'Арендовать Киностудию (с наличием VIP предоставляется скидка)', novip: 2, vip: 4 },
-		{ id: 2, type: 'Одиночные', text: 'Выполнить 1 успешную тренировку в тире', novip: 1, vip: 2 },
-		{ id: 3, type: 'Одиночные', text: 'Выиграть в казино, поставив на 0 или 00', novip: 2, vip: 4 },
-		{ id: 4, type: 'Одиночные', text: 'Провести 3 часа в игре', novip: 2, vip: 4 },
-		{ id: 5, type: 'Одиночные', text: 'Выполнить 20 подходов на любом тренажёре в спортивном зале или на спортплощадке', novip: 1, vip: 2 },
-		{ id: 6, type: 'Одиночные', text: 'Выполнить 20 подходов на любом эспандере (заменяет спортивный зал)', novip: 1, vip: 2 },
-		{ id: 7, type: 'Одиночные', text: 'Купить 1 лотерейный билет через телефон', novip: 1, vip: 2 },
-		{ id: 8, type: 'Одиночные', text: '2 раза сменить внешность у NPC Хирурга в городской EMS', novip: 2, vip: 4 },
-		{ id: 9, type: 'Одиночные', text: 'Добавить 5 видео в Кинотеатр (можно добавить 1 ролик 5 раз)', novip: 1, vip: 2 },
-		{ id: 10, type: 'Одиночные', text: 'Посетить любой сайт в браузере', novip: 1, vip: 2 },
-		{ id: 11, type: 'Одиночные', text: 'Зайти в любой канал в Brawl', novip: 1, vip: 2 },
-		{ id: 12, type: 'Одиночные', text: 'Поставить лайк любой анкете в Match', novip: 1, vip: 2 },
-		{ id: 13, type: 'Одиночные', text: 'Прокрутить за DP Рыбный/Silver/Drive/Gold кейс', novip: 10, vip: 20 },
-		{ id: 14, type: 'Одиночные', text: 'Кинуть мяч питомцу 15 раз', novip: 2, vip: 4 },
-		{ id: 15, type: 'Одиночные', text: '15 выполненных питомцем команд', novip: 2, vip: 4 },
-		{ id: 16, type: 'Одиночные', text: 'Ставка в колесе удачи в казино (межсерверное колесо)', novip: 3, vip: 6 },
-		{ id: 17, type: 'Одиночные', text: 'Проехать 1 станцию на метро', novip: 2, vip: 4 },
-		{ id: 18, type: 'Одиночные', text: 'Поймать 20 рыб', novip: 4, vip: 8 },
-		{ id: 19, type: 'Одиночные', text: 'Выполнить 2 квеста любых клубов (можно по одному разных)', novip: 4, vip: 8 },
-		{ id: 20, type: 'Одиночные', text: 'Починить деталь в автосервисе', novip: 1, vip: 2 },
-		{ id: 21, type: 'Одиночные', text: 'Забросить 2 мяча в баскетболе', novip: 1, vip: 2 },
-		{ id: 22, type: 'Одиночные', text: 'Забить 2 гола в футболе', novip: 1, vip: 2 },
-		{ id: 23, type: 'Одиночные', text: 'Победить в дартс', novip: 1, vip: 2 },
-		{ id: 24, type: 'Одиночные', text: 'Поиграть 1 минуту в волейбол', novip: 1, vip: 2 },
-		{ id: 25, type: 'Одиночные', text: 'Поиграть 1 минуту в настольный теннис', novip: 1, vip: 2 },
-		{ id: 26, type: 'Одиночные', text: 'Поиграть 1 минуту в большой теннис', novip: 1, vip: 2 },
-		{ id: 27, type: 'Одиночные', text: 'Сделать платеж по лизингу', novip: 1, vip: 2 },
+		{ id: 1, type: 'Одиночные', text: 'Арендовать Киностудию (с наличием VIP предоставляется скидка)', points: 2 },
+		{ id: 2, type: 'Одиночные', text: 'Выполнить 1 успешную тренировку в тире', points: 1 },
+		{ id: 3, type: 'Одиночные', text: 'Выиграть в казино, поставив на 0 или 00', points: 2 },
+		{ id: 4, type: 'Одиночные', text: 'Провести 3 часа в игре', points: 2 },
+		{ id: 5, type: 'Одиночные', text: 'Выполнить 20 подходов на любом тренажёре в спортивном зале или на спортплощадке', points: 1 },
+		{ id: 6, type: 'Одиночные', text: 'Выполнить 20 подходов на любом эспандере (заменяет спортивный зал)', points: 1 },
+		{ id: 7, type: 'Одиночные', text: 'Купить 1 лотерейный билет через телефон', points: 1 },
+		{ id: 8, type: 'Одиночные', text: '2 раза сменить внешность у NPC Хирурга в городской EMS', points: 2 },
+		{ id: 9, type: 'Одиночные', text: 'Добавить 5 видео в Кинотеатр (можно добавить 1 ролик 5 раз)', points: 1 },
+		{ id: 10, type: 'Одиночные', text: 'Посетить любой сайт в браузере', points: 1 },
+		{ id: 11, type: 'Одиночные', text: 'Зайти в любой канал в Brawl', points: 1 },
+		{ id: 12, type: 'Одиночные', text: 'Поставить лайк любой анкете в Match', points: 1 },
+		{ id: 13, type: 'Одиночные', text: 'Прокрутить за DP Рыбный/Silver/Drive/Gold кейс', points: 10 },
+		{ id: 14, type: 'Одиночные', text: 'Кинуть мяч питомцу 15 раз', points: 2 },
+		{ id: 15, type: 'Одиночные', text: '15 выполненных питомцем команд', points: 2 },
+		{ id: 16, type: 'Одиночные', text: 'Ставка в колесе удачи в казино (межсерверное колесо)', points: 3 },
+		{ id: 17, type: 'Одиночные', text: 'Проехать 1 станцию на метро', points: 2 },
+		{ id: 18, type: 'Одиночные', text: 'Поймать 20 рыб', points: 4 },
+		{ id: 19, type: 'Одиночные', text: 'Выполнить 2 квеста любых клубов (можно по одному разных)', points: 4 },
+		{ id: 20, type: 'Одиночные', text: 'Починить деталь в автосервисе', points: 1 },
+		{ id: 21, type: 'Одиночные', text: 'Забросить 2 мяча в баскетболе', points: 1 },
+		{ id: 22, type: 'Одиночные', text: 'Забить 2 гола в футболе', points: 1 },
+		{ id: 23, type: 'Одиночные', text: 'Победить в дартс', points: 1 },
+		{ id: 24, type: 'Одиночные', text: 'Поиграть 1 минуту в волейбол', points: 1 },
+		{ id: 25, type: 'Одиночные', text: 'Поиграть 1 минуту в настольный теннис', points: 1 },
+		{ id: 26, type: 'Одиночные', text: 'Поиграть 1 минуту в большой теннис', points: 1 },
+		{ id: 27, type: 'Одиночные', text: 'Сделать платеж по лизингу', points: 1 },
 
-		{ id: 28, type: 'Парные', text: 'Выиграть 1 гонку на картинге', novip: 1, vip: 2 },
-		{ id: 29, type: 'Парные', text: 'Проехать 1 уличную гонку, созданную через телефон со ставкой от 1000$ (с 5-го уровня)', novip: 1, vip: 2 },
-		{ id: 30, type: 'Парные', text: 'Победить 3 раза в Dance Battle в любом из ночных клубов', novip: 2, vip: 4 },
-		{ id: 31, type: 'Парные', text: 'Выиграть 3 игры на Арене Maze Bank со ставкой от 100$', novip: 1, vip: 2 },
-		{ id: 32, type: 'Парные', text: 'Выиграть 5 игр в Тренировочном комплексе (ТК) со ставкой от 100$', novip: 1, vip: 2 },
-		{ id: 33, type: 'Парные', text: 'Победить в армрестлинге', novip: 1, vip: 2 },
-		{ id: 34, type: 'Парные', text: 'Сыграть в мафию в казино', novip: 3, vip: 6 },
-		{ id: 35, type: 'Парные', text: 'Починить машину другого человека через предложение в автосервисе (от 1 уровня механика - < 90%)', novip: 2, vip: 4 },
+		{ id: 28, type: 'Парные', text: 'Выиграть 1 гонку на картинге', points: 1 },
+		{ id: 29, type: 'Парные', text: 'Проехать 1 уличную гонку, созданную через телефон со ставкой от 1000$ (с 5-го уровня)', points: 1 },
+		{ id: 30, type: 'Парные', text: 'Победить 3 раза в Dance Battle в любом из ночных клубов', points: 2 },
+		{ id: 31, type: 'Парные', text: 'Выиграть 3 игры на Арене Maze Bank со ставкой от 100$', points: 1 },
+		{ id: 32, type: 'Парные', text: 'Выиграть 5 игр в Тренировочном комплексе (ТК) со ставкой от 100$', points: 1 },
+		{ id: 33, type: 'Парные', text: 'Победить в армрестлинге', points: 1 },
+		{ id: 34, type: 'Парные', text: 'Сыграть в мафию в казино', points: 3 },
+		{ id: 35, type: 'Парные', text: 'Починить машину другого человека через предложение в автосервисе (от 1 уровня механика - < 90%)', points: 2 },
 
-		{ id: 36, type: 'Хобби', text: 'Снять 5 шкур прочностью 100% (надо убить животное с 1 выстрела)', novip: 2, vip: 4 },
-		{ id: 37, type: 'Хобби', text: 'Выкопать 1 сокровище (не хлам)', novip: 1, vip: 2 },
+		{ id: 36, type: 'Хобби', text: 'Снять 5 шкур прочностью 100% (надо убить животное с 1 выстрела)', points: 2 },
+		{ id: 37, type: 'Хобби', text: 'Выкопать 1 сокровище (не хлам)', points: 1 },
 
-		{ id: 38, type: 'Работа', text: 'Выполнить 25 действий в порту', novip: 2, vip: 4 },
-		{ id: 39, type: 'Работа', text: 'Выполнить 25 действий на шахте', novip: 2, vip: 4 },
-		{ id: 40, type: 'Работа', text: 'Выполнить 25 действий на стройке', novip: 2, vip: 4 },
-		{ id: 41, type: 'Работа', text: 'Потушить 25 огоньков, работая пожарным', novip: 1, vip: 2 },
-		{ id: 42, type: 'Работа', text: 'Доставить 10 посылок, работая почтальоном', novip: 1, vip: 2 },
-		{ id: 43, type: 'Работа', text: 'Выполнить 10 действий на ферме (например, подоить корову)', novip: 1, vip: 2 },
-		{ id: 44, type: 'Работа', text: 'Выполнить 3 заказа дальнобойщиком', novip: 2, vip: 4 },
-		{ id: 45, type: 'Работа', text: 'Выполнить 2 рейса на любом маршруте, работая водителем автобуса', novip: 2, vip: 4 },
+		{ id: 38, type: 'Работа', text: 'Выполнить 25 действий в порту', points: 2 },
+		{ id: 39, type: 'Работа', text: 'Выполнить 25 действий на шахте', points: 2 },
+		{ id: 40, type: 'Работа', text: 'Выполнить 25 действий на стройке', points: 2 },
+		{ id: 41, type: 'Работа', text: 'Потушить 25 огоньков, работая пожарным', points: 1 },
+		{ id: 42, type: 'Работа', text: 'Доставить 10 посылок, работая почтальоном', points: 1 },
+		{ id: 43, type: 'Работа', text: 'Выполнить 10 действий на ферме (например, подоить корову)', points: 1 },
+		{ id: 44, type: 'Работа', text: 'Выполнить 3 заказа дальнобойщиком', points: 2 },
+		{ id: 45, type: 'Работа', text: 'Выполнить 2 рейса на любом маршруте, работая водителем автобуса', points: 2 },
 
-		{ id: 46, type: 'Гос.', text: 'Выдать 5 медкарт, работая в EMS', novip: 1, vip: 2 },
-		{ id: 47, type: 'Гос.', text: 'Закрыть 15 вызовов, работая в EMS', novip: 2, vip: 4 },
-		{ id: 48, type: 'Гос.', text: 'Произвести 1 арест в КПЗ LSPD/LSSD', novip: 1, vip: 2 },
-		{ id: 49, type: 'Гос.', text: 'Поставить 2 транспортных средства на учёт, работая в LSPD', novip: 1, vip: 2 },
-		{ id: 50, type: 'Гос.', text: 'Закрыть 5 вызовов, работая в гос. (например, Код-0)', novip: 2, vip: 4 },
-		{ id: 51, type: 'Гос.', text: 'Выпустить 2-х заключённых под залог из КПЗ LSPD/LSSD, работая адвокатом', novip: 2, vip: 4 },
-		{ id: 52, type: 'Гос.', text: 'Проверить и опубликовать 40 объявлений, работая в Weazel News', novip: 2, vip: 4 },
-		{ id: 53, type: 'Гос.', text: 'Отправить 1 сообщение в Эфир (зелёная строка), работая в Weazel News', novip: 2, vip: 4 },
+		{ id: 46, type: 'Гос.', text: 'Выдать 5 медкарт, работая в EMS', points: 1 },
+		{ id: 47, type: 'Гос.', text: 'Закрыть 15 вызовов, работая в EMS', points: 2 },
+		{ id: 48, type: 'Гос.', text: 'Произвести 1 арест в КПЗ LSPD/LSSD', points: 1 },
+		{ id: 49, type: 'Гос.', text: 'Поставить 2 транспортных средства на учёт, работая в LSPD', points: 1 },
+		{ id: 50, type: 'Гос.', text: 'Закрыть 5 вызовов, работая в гос. (например, Код-0)', points: 2 },
+		{ id: 51, type: 'Гос.', text: 'Выпустить 2-х заключённых под залог из КПЗ LSPD/LSSD, работая адвокатом', points: 2 },
+		{ id: 52, type: 'Гос.', text: 'Проверить и опубликовать 40 объявлений, работая в Weazel News', points: 2 },
+		{ id: 53, type: 'Гос.', text: 'Отправить 1 сообщение в Эфир (зелёная строка), работая в Weazel News', points: 2 },
 
-		{ id: 54, type: 'Гос. / Crime', text: 'Принять участие в двух аирдропах', novip: 4, vip: 8 },
+		{ id: 54, type: 'Гос. / Crime', text: 'Принять участие в двух аирдропах', points: 4 },
 
-		{ id: 55, type: 'Crime', text: 'Поучаствовать в капте (банда) или бизваре (мафия)', novip: 1, vip: 2 },
-		{ id: 56, type: 'Crime', text: 'Привезти на титул Хаммер с ВЗХ', novip: 3, vip: 6 },
-		{ id: 57, type: 'Crime', text: '5 раз получить оплату за доставку контрабанды в мафии', novip: 2, vip: 4 },
-		{ id: 58, type: 'Crime', text: 'Взломать 15 замков на ограблениях домов и/или угонах авто', novip: 2, vip: 4 },
-		{ id: 59, type: 'Crime', text: 'Закрасить 7 граффити, находясь в банде (можно закрасить одно граффити 7 раз)', novip: 1, vip: 2 },
-		{ id: 60, type: 'Crime', text: 'Посадить траву в теплице', novip: 4, vip: 8 },
-		{ id: 61, type: 'Crime', text: 'Запустить переработку обезболивающих в лаборатории', novip: 4, vip: 8 },
+		{ id: 55, type: 'Crime', text: 'Поучаствовать в капте (банда) или бизваре (мафия)', points: 1 },
+		{ id: 56, type: 'Crime', text: 'Привезти на титул Хаммер с ВЗХ', points: 3 },
+		{ id: 57, type: 'Crime', text: '5 раз получить оплату за доставку контрабанды в мафии', points: 2 },
+		{ id: 58, type: 'Crime', text: 'Взломать 15 замков на ограблениях домов и/или угонах авто', points: 2 },
+		{ id: 59, type: 'Crime', text: 'Закрасить 7 граффити, находясь в банде (можно закрасить одно граффити 7 раз)', points: 1 },
+		{ id: 60, type: 'Crime', text: 'Посадить траву в теплице', points: 4 },
+		{ id: 61, type: 'Crime', text: 'Запустить переработку обезболивающих в лаборатории', points: 4 },
 
-		{ id: 62, type: 'Бизнес', text: 'Вручную заказать материалы на склад бизнеса (нажать выкл./вкл.)', novip: 1, vip: 2 },
+		{ id: 62, type: 'Бизнес', text: 'Вручную заказать материалы на склад бизнеса (нажать выкл./вкл.)', points: 1 },
 	];
 
 	const html = document.documentElement;
@@ -220,6 +220,15 @@ document.addEventListener('DOMContentLoaded', function () {
 	const hiddenKey = 'bp-hidden';
 	const data_last_updated = '202603211918';
 	const orderKey = 'bp-custom-order';
+
+	const EVENT_END_TS = 1775448060;
+	const multiplier = Date.now() / 1000 < EVENT_END_TS ? 2 : 1;
+
+	const spanMultiplier = document.getElementById('span-multiplier');
+	if (spanMultiplier && multiplier !== 1)
+	{
+		spanMultiplier.textContent = `(X${multiplier}) `;
+	}
 
 	let checked = JSON.parse(localStorage.getItem(storageKey) || '{}');
 	let hidden = JSON.parse(localStorage.getItem(hiddenKey) || '[]');
@@ -337,12 +346,14 @@ document.addEventListener('DOMContentLoaded', function () {
 			`;
 			tr.appendChild(tdAction);
 
+			const basePoints = row.points * multiplier;
+
 			const tdNoVip = document.createElement('td');
-			tdNoVip.textContent = `${row.novip} BP`;
+			tdNoVip.textContent = `${basePoints} BP`;
 			tr.appendChild(tdNoVip);
 
 			const tdVip = document.createElement('td');
-			tdVip.textContent = `${row.vip} BP`;
+			tdVip.textContent = `${basePoints * 2} BP`;
 			tr.appendChild(tdVip);
 
 			const tdCheck = document.createElement('td');
@@ -484,8 +495,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			const id = parseInt(cb.dataset.id);
 			const entry = data[id - 1];
 			if (entry) {
-				sumNoVip += entry.novip;
-				sumVip += entry.vip;
+				sumNoVip += entry.points * multiplier;
+				sumVip += entry.points * 2 * multiplier;
 			}
 		});
 
