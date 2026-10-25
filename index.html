@@ -104,6 +104,9 @@
 						<button id="reset-order" class="btn btn-sm btn-outline-light show-button p-0 px-1 ms-2">
 							↺ Порядок
 						</button>
+						<button id="toggle-x2" class="btn btn-sm btn-outline-light show-button p-0 px-1 ms-2">
+							X2
+						</button>
 					</th>
 					<th colspan="2"><span id="span-multiplier"></span>Без / с VIP</th>
 					<th class="text-center">
@@ -213,6 +216,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	const html = document.documentElement;
 	const body = document.body;
 	const themeButton = document.getElementById('toggle-theme');
+	const x2Button = document.getElementById('toggle-x2');
 
 	const tableBody = document.getElementById('data-table');
 	const storageKey = 'bp-checks';
@@ -221,13 +225,12 @@ document.addEventListener('DOMContentLoaded', function () {
 	const data_last_updated = '202603211918';
 	const orderKey = 'bp-custom-order';
 
-	const EVENT_END_TS = 1778558460;
-	const multiplier = Date.now() / 1000 < EVENT_END_TS ? 2 : 1;
+	const x2Key = 'bp-x2';
+	let multiplier = localStorage.getItem(x2Key) === 'true' ? 2 : 1;
 
 	const spanMultiplier = document.getElementById('span-multiplier');
-	if (spanMultiplier && multiplier !== 1)
-	{
-		spanMultiplier.textContent = `(X${multiplier}) `;
+	if (spanMultiplier) {
+		spanMultiplier.textContent = multiplier === 2 ? '(X2) ' : '';
 	}
 
 	let checked = JSON.parse(localStorage.getItem(storageKey) || '{}');
@@ -367,6 +370,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		attachEvents();
 	}
 
+	function updateX2Button() {
+		x2Button.classList.toggle('btn-light', multiplier === 2);
+		x2Button.classList.toggle('text-dark', multiplier === 2);
+		x2Button.classList.toggle('btn-outline-light', multiplier !== 2);
+	}
+
 	// Главные обработчики
 	document.getElementById('show-hidden').addEventListener('click', () => {
 		hidden = [];
@@ -392,6 +401,17 @@ document.addEventListener('DOMContentLoaded', function () {
 		const newTheme = current === 'dark' ? 'light' : 'dark';
 		applyTheme(newTheme);
 		localStorage.setItem('bp-theme', newTheme);
+	});
+
+	x2Button.addEventListener('click', () => {
+		multiplier = multiplier === 2 ? 1 : 2;
+		localStorage.setItem(x2Key, multiplier === 2 ? 'true' : 'false');
+
+		spanMultiplier.textContent = multiplier === 2 ? '(X2) ' : '';
+
+		updateX2Button();
+		renderTable();
+		updateSummary();
 	});
 
 	document.getElementById('reset-order').addEventListener('click', () => {
@@ -546,6 +566,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	renderTable();
 	updateSummary();
+	updateX2Button();
 });
 </script>
 
